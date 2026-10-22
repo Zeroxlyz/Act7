@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Restaurante Delicioso - Caja Registradora</title>
+        <link rel="stylesheet" href="estilos.css">
+    </head>
+    <body>
+
+        <!-- MODIFICACIÓN 1: encabezado nuevo (banner) y diseño en dos columnas -->
+        <header class="banner">
+            <div class="banner-icono">🍽️</div>
+            <h1>Restaurante Delicioso</h1>
+            <p class="subtitulo">Sabor casero, servicio rápido</p>
+        </header>
+
+        <main class="contenedor">
+
+            <!-- COLUMNA IZQUIERDA: formulario del pedido -->
+            <section class="tarjeta">
+
+                <h2>Ordena tu Menú</h2>
+
+                <form id="formularioRestaurante">
+
+                    <div class="seccion">
+                        <label for="nombreCliente">Nombre del Cliente:</label>
+                        <input
+                            type="text"
+                            id="nombreCliente"
+                            placeholder="Ej. Juan Pérez"
+                            maxlength="100"
+                            required
+                            >
+                    </div>
+
+                    <!-- MODIFICACIÓN 2a: el menú ahora son tarjetas con imagen (emoji) y 2 platos nuevos -->
+                    <div class="seccion">
+                        <label>Elige tu Plato Principal:</label>
+
+                        <div class="menu-tarjetas">
+
+                            <label class="plato">
+                                <input type="radio" name="plato" value="pizza" required>
+                                <span class="plato-caja">
+                                    <span class="plato-emoji">🍕</span>
+                                    <span class="plato-nombre">Pizza Familiar</span>
+                                    <span class="plato-precio">$12.00</span>
+                                </span>
+                            </label>
+
+                            <label class="plato">
+                                <input type="radio" name="plato" value="hamburguesa">
+                                <span class="plato-caja">
+                                    <span class="plato-emoji">🍔</span>
+                                    <span class="plato-nombre">Hamburguesa</span>
+                                    <span class="plato-precio">$7.50</span>
+                                </span>
+                            </label>
+
+                            <label class="plato">
+                                <input type="radio" name="plato" value="tacos">
+                                <span class="plato-caja">
+                                    <span class="plato-emoji">🌮</span>
+                                    <span class="plato-nombre">Orden de Tacos</span>
+                                    <span class="plato-precio">$6.00</span>
+                                </span>
+                            </label>
+
+                            <label class="plato">
+                                <input type="radio" name="plato" value="ensalada">
+                                <span class="plato-caja">
+                                    <span class="plato-emoji">🥗</span>
+                                    <span class="plato-nombre">Ensalada César</span>
+                                    <span class="plato-precio">$5.50</span>
+                                </span>
+                            </label>
+
+                            <label class="plato">
+                                <input type="radio" name="plato" value="pasta">
+                                <span class="plato-caja">
+                                    <span class="plato-emoji">🍝</span>
+                                    <span class="plato-nombre">Pasta Alfredo</span>
+                                    <span class="plato-precio">$9.00</span>
+                                </span>
+                            </label>
+
+                            <label class="plato">
+                                <input type="radio" name="plato" value="pollo">
+                                <span class="plato-caja">
+                                    <span class="plato-emoji">🍗</span>
+                                    <span class="plato-nombre">Pollo Frito</span>
+                                    <span class="plato-precio">$8.00</span>
+                                </span>
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <!-- MODIFICACIÓN 2b: cantidad de platos -->
+                    <div class="seccion">
+                        <label for="cantidad">Cantidad de platos:</label>
+                        <input
+                            type="number"
+                            id="cantidad"
+                            value="1"
+                            min="1"
+                            max="20"
+                            required
+                            >
+                    </div>
+
+                    <div class="seccion">
+                        <label>Tamaño de la Bebida:</label>
+
+                        <div class="opciones-inline">
+
+                            <div class="opcion">
+                                <input type="radio" id="bebidaP" name="tamanoBebida" value="pequena" checked>
+                                <label for="bebidaP">Pequeña ($1.00)</label>
+                            </div>
+
+                            <div class="opcion">
+                                <input type="radio" id="bebidaM" name="tamanoBebida" value="mediana">
+                                <label for="bebidaM">Mediana ($1.50)</label>
+                            </div>
+
+                            <div class="opcion">
+                                <input type="radio" id="bebidaG" name="tamanoBebida" value="grande">
+                                <label for="bebidaG">Grande ($2.00)</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="seccion">
+                        <label>¿Deseas agregar extras?</label>
+
+                        <div class="checkbox-group">
+
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="extraPapas">
+                                <label for="extraPapas">Papas Fritas (+$2.50)</label>
+                            </div>
+
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="extraQueso">
+                                <label for="extraQueso">Extra Queso (+$1.50)</label>
+                            </div>
+
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="extraTocino">
+                                <label for="extraTocino">Tocino (+$2.00)</label>
+                            </div>
+
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="extraHelado">
+                                <label for="extraHelado">Helado (+$1.80)</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- MODIFICACIÓN 2c: tipo de servicio y propina -->
+                    <div class="seccion fila-doble">
+
+                        <div>
+                            <label for="servicio">Tipo de servicio:</label>
+                            <select id="servicio">
+                                <option value="mesa">En mesa</option>
+                                <option value="llevar">Para llevar</option>
+                                <option value="domicilio">A domicilio (+$2.00)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="propina">Propina:</label>
+                            <select id="propina">
+                                <option value="0">Sin propina</option>
+                                <option value="10">10%</option>
+                                <option value="15">15%</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="seccion">
+                        <label for="notas">Notas Especiales o Alergias:</label>
+                        <textarea
+                            id="notas"
+                            rows="3"
+                            placeholder="Ej. Sin cebolla, salsa aparte..."
+                            ></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-verde">
+                        Calcular y Guardar Pedido
+                    </button>
+
+                </form>
+            </section>
+
+            <!-- COLUMNA DERECHA: recibo y administración -->
+            <aside class="columna-derecha">
+
+                <div id="reciboRespuesta" role="status"></div>
+
+                <section class="tarjeta panel-admin">
+
+                    <h2>Administración de Ventas</h2>
+
+                    <!-- Botones pedidos: mostrar datos y limpiar -->
+                    <div class="botones-admin">
+                        <button type="button" id="btnVerHistorial" class="btn-azul">
+                            Mostrar Datos
+                        </button>
+
+                        <button type="button" id="btnBorrarHistorial" class="btn-rojo">
+                            Limpiar Datos
+                        </button>
+                    </div>
+
+                    <div id="tablaHistorial"></div>
+
+                </section>
+
+            </aside>
+
+        </main>
+
+        <footer class="pie">
+            Restaurante Delicioso · Los pedidos se guardan en IndexedDB de este navegador
+        </footer>
+
+        <!-- Dexie (librería para IndexedDB), copia local para trabajar sin internet -->
+        <script src="dexie.min.js"></script>
+        <script src="programa.js"></script>
+
+    </body>
+</html>
