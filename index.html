@@ -1,241 +1,94 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Restaurante Delicioso - Caja Registradora</title>
-        <link rel="stylesheet" href="estilos.css">
-    </head>
-    <body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banco Ceiba · Banca en línea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+<header class="barra">
+  <a class="marca" href="#" id="marca">Banco Ceiba</a>
+  <nav id="navPublica">
+    <a href="#servicios">Servicios</a>
+    <a href="#registro">Abrir cuenta</a>
+    <a href="#acceso" class="boton chico">Ingresar</a>
+  </nav>
+  <nav id="navPrivada" hidden>
+    <span id="saludo"></span>
+    <button class="boton chico" id="btnSalir">Cerrar sesión</button>
+  </nav>
+</header>
 
-        enc
-        <header class="banner">
-            <div class="banner-icono">🍽️</div>
-            <h1>Restaurante Delicioso</h1>
-            <p class="subtitulo">Sabor casero, servicio rápido</p>
-        </header>
+<main id="publico">
+  <section class="hero">
+    <h1>Su dinero, a la sombra de un árbol que no se mueve.</h1>
+    <p>Abra su cuenta en minutos, transfiera, pague sus servicios y descargue su estado de cuenta sin salir de casa.</p>
+    <a class="boton" href="#registro">Abrir mi cuenta</a>
+  </section>
 
-        <main class="contenedor">
+  <section id="servicios" class="bloque">
+    <h2>Lo que puede hacer en Banco Ceiba</h2>
+    <div class="servicios">
+      <article><h3>Cuentas</h3><p>Monetaria o de ahorro, con saldo disponible a la vista.</p></article>
+      <article><h3>Transferencias</h3><p>Envíe dinero a otra cuenta con solo el número y el monto.</p></article>
+      <article><h3>Pago de servicios</h3><p>Teléfono, agua potable, electricidad e internet.</p></article>
+      <article><h3>Estado de cuenta</h3><p>Genere el estado de cualquier mes y guárdelo en PDF.</p></article>
+    </div>
+  </section>
 
-            colizq
-            <section class="tarjeta">
+  <section id="registro" class="bloque dos">
+    <div>
+      <h2>Abra su cuenta</h2>
+      <form id="formRegistro" novalidate>
+        <label>Nombre completo<input name="nombre" required minlength="5"></label>
+        <label>DPI (13 dígitos)<input name="dpi" required pattern="\d{13}" inputmode="numeric"></label>
+        <label>Correo electrónico<input name="correo" type="email" required></label>
+        <label>Teléfono (8 dígitos)<input name="telefono" required pattern="\d{8}" inputmode="numeric"></label>
+        <label>Dirección<input name="direccion" required></label>
+        <label>Usuario<input name="usuario" required minlength="4" autocomplete="username"></label>
+        <label>Contraseña (mínimo 4 caracteres)<input name="clave" type="password" required minlength="4" autocomplete="new-password"></label>
+        <label>Tipo de cuenta
+          <select name="tipo"><option>Monetaria</option><option>Ahorro</option></select>
+        </label>
+        <label>Depósito inicial (Q)<input name="deposito" type="number" min="100" step="0.01" value="500" required></label>
+        <button class="boton" type="submit">Registrarme</button>
+        <p class="error" id="errRegistro" role="alert"></p>
+      </form>
+    </div>
+    <div id="resumenRegistro" class="resumen" hidden></div>
+  </section>
 
-                <h2>Ordena tu Menú</h2>
+  <section id="acceso" class="bloque angosto">
+    <h2>Ingresar a la banca en línea</h2>
+    <form id="formLogin" novalidate>
+      <label>Usuario<input name="usuario" required autocomplete="username"></label>
+      <label>Contraseña<input name="clave" type="password" required autocomplete="current-password"></label>
+      <button class="boton" type="submit">Ingresar</button>
+      <p class="error" id="errLogin" role="alert"></p>
+    </form>
+    <p class="nota">Pruebas: usuario <b>admin</b>, contraseña <b>2026</b>.</p>
+  </section>
+</main>
 
-                <form id="formularioRestaurante">
+<main id="app" hidden>
+<div class="layout">
+  <nav class="pestanas" id="pestanas">
+    <button data-vista="cuentas" class="activa">Resumen de productos</button>
+    <button data-vista="movimientos">Consultar movimientos</button>
+    <button data-vista="transferir">Transferir</button>
+    <button data-vista="servicios">Pagar servicios</button>
+    <button data-vista="estado">Estado de cuenta</button>
+    <button data-vista="clientes" id="tabClientes" hidden>Clientes</button>
+  </nav>
+  <section id="vista" class="bloque"></section>
+</div>
+</main>
 
-                    <div class="seccion">
-                        <label for="nombreCliente">Nombre del Cliente:</label>
-                        <input
-                            type="text"
-                            id="nombreCliente"
-                            placeholder="Ej. Juan Pérez"
-                            maxlength="100"
-                            required
-                            >
-                    </div>
-
-                    
-                    <div class="seccion">
-                        <label>Elige tu Plato Principal:</label>
-
-                        <div class="menu-tarjetas">
-
-                            <label class="plato">
-                                <input type="radio" name="plato" value="pizza" required>
-                                <span class="plato-caja">
-                                    <span class="plato-emoji">🍕</span>
-                                    <span class="plato-nombre">Pizza Familiar</span>
-                                    <span class="plato-precio">$12.00</span>
-                                </span>
-                            </label>
-
-                            <label class="plato">
-                                <input type="radio" name="plato" value="hamburguesa">
-                                <span class="plato-caja">
-                                    <span class="plato-emoji">🍔</span>
-                                    <span class="plato-nombre">Hamburguesa</span>
-                                    <span class="plato-precio">$7.50</span>
-                                </span>
-                            </label>
-
-                            <label class="plato">
-                                <input type="radio" name="plato" value="tacos">
-                                <span class="plato-caja">
-                                    <span class="plato-emoji">🌮</span>
-                                    <span class="plato-nombre">Orden de Tacos</span>
-                                    <span class="plato-precio">$6.00</span>
-                                </span>
-                            </label>
-
-                            <label class="plato">
-                                <input type="radio" name="plato" value="ensalada">
-                                <span class="plato-caja">
-                                    <span class="plato-emoji">🥗</span>
-                                    <span class="plato-nombre">Ensalada César</span>
-                                    <span class="plato-precio">$5.50</span>
-                                </span>
-                            </label>
-
-                            <label class="plato">
-                                <input type="radio" name="plato" value="pasta">
-                                <span class="plato-caja">
-                                    <span class="plato-emoji">🍝</span>
-                                    <span class="plato-nombre">Pasta Alfredo</span>
-                                    <span class="plato-precio">$9.00</span>
-                                </span>
-                            </label>
-
-                            <label class="plato">
-                                <input type="radio" name="plato" value="pollo">
-                                <span class="plato-caja">
-                                    <span class="plato-emoji">🍗</span>
-                                    <span class="plato-nombre">Pollo Frito</span>
-                                    <span class="plato-precio">$8.00</span>
-                                </span>
-                            </label>
-
-                        </div>
-                    </div>
-
-                    
-                    <div class="seccion">
-                        <label for="cantidad">Cantidad de platos:</label>
-                        <input
-                            type="number"
-                            id="cantidad"
-                            value="1"
-                            min="1"
-                            max="20"
-                            required
-                            >
-                    </div>
-
-                    <div class="seccion">
-                        <label>Tamaño de la Bebida:</label>
-
-                        <div class="opciones-inline">
-
-                            <div class="opcion">
-                                <input type="radio" id="bebidaP" name="tamanoBebida" value="pequena" checked>
-                                <label for="bebidaP">Pequeña ($1.00)</label>
-                            </div>
-
-                            <div class="opcion">
-                                <input type="radio" id="bebidaM" name="tamanoBebida" value="mediana">
-                                <label for="bebidaM">Mediana ($1.50)</label>
-                            </div>
-
-                            <div class="opcion">
-                                <input type="radio" id="bebidaG" name="tamanoBebida" value="grande">
-                                <label for="bebidaG">Grande ($2.00)</label>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="seccion">
-                        <label>¿Deseas agregar extras?</label>
-
-                        <div class="checkbox-group">
-
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="extraPapas">
-                                <label for="extraPapas">Papas Fritas (+$2.50)</label>
-                            </div>
-
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="extraQueso">
-                                <label for="extraQueso">Extra Queso (+$1.50)</label>
-                            </div>
-
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="extraTocino">
-                                <label for="extraTocino">Tocino (+$2.00)</label>
-                            </div>
-
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="extraHelado">
-                                <label for="extraHelado">Helado (+$1.80)</label>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    
-                    <div class="seccion fila-doble">
-
-                        <div>
-                            <label for="servicio">Tipo de servicio:</label>
-                            <select id="servicio">
-                                <option value="mesa">En mesa</option>
-                                <option value="llevar">Para llevar</option>
-                                <option value="domicilio">A domicilio (+$2.00)</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label for="propina">Propina:</label>
-                            <select id="propina">
-                                <option value="0">Sin propina</option>
-                                <option value="10">10%</option>
-                                <option value="15">15%</option>
-                            </select>
-                        </div>
-
-                    </div>
-
-                    <div class="seccion">
-                        <label for="notas">Notas Especiales o Alergias:</label>
-                        <textarea
-                            id="notas"
-                            rows="3"
-                            placeholder="Ej. Sin cebolla, salsa aparte..."
-                            ></textarea>
-                    </div>
-
-                    <button type="submit" class="btn-verde">
-                        Calcular y Guardar Pedido
-                    </button>
-
-                </form>
-            </section>
-
-           
-            <aside class="columna-derecha">
-
-                <div id="reciboRespuesta" role="status"></div>
-
-                <section class="tarjeta panel-admin">
-
-                    <h2>Administración de Ventas</h2>
-
-                
-                    <div class="botones-admin">
-                        <button type="button" id="btnVerHistorial" class="btn-azul">
-                            Mostrar Datos
-                        </button>
-
-                        <button type="button" id="btnBorrarHistorial" class="btn-rojo">
-                            Limpiar Datos
-                        </button>
-                    </div>
-
-                    <div id="tablaHistorial"></div>
-
-                </section>
-
-            </aside>
-
-        </main>
-
-        <footer class="pie">
-            Restaurante Delicioso · Los pedidos se guardan en IndexedDB de este navegador
-        </footer>
-
-        <!-- Dexie (librería para IndexedDB), copia local para trabajar sin internet -->
-        <script src="dexie.min.js"></script>
-        <script src="programa.js"></script>
-
-    </body>
+<footer class="pie">Banco Ceiba es una institución ficticia creada para un proyecto académico.</footer>
+<script src="js/app.js"></script>
+</body>
 </html>
